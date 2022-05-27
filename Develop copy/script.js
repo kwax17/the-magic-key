@@ -20,27 +20,28 @@ function generatePassword() {
   //prompt for symbols
   var passwordSymbols = window.confirm("Do you want to include symbols?");
 
-  for (var i = 0; i = passwordLength; i++) {
+  for (var i = 0; i <= passwordLength; i++) {
     if (passwordNumbers === true && passwordSymbols === true) {
-      var randomPassword = Math.floor(Math.random() * (password.letters + password.numbers + password.symbols));
+      var randomPassword = ['password.letters', 'password.numbers', 'password.symbols'][Math.floor(Math.random() * 3)];
     }
 
     if (passwordNumbers === true && passwordSymbols === false) {
-      var randomPassword = Math.floor(Math.random() * (password.letters + password.numbers));
+      var randomPassword = ['password.letters', 'password.numbers'][Math.floor(Math.random() * 2)];
     }
 
     if (passwordNumbers === false && passwordSymbols === true) {
-      var randomPassword = Math.floor(Math.random() * (password.letters + password.symbols));
+      var randomPassword = ['password.letters', 'password.symbols'][Math.floor(Math.random() * 2)];
     }
 
     else {
       var randomPassword = Math.floor(Math.random() * (password.letters));
     }
-
-    document.getElementById("password").innerHTML =  randomPassword.value
   }
 
+  document.getElementById("password").innerHTML =  randomPassword
+  
   return randomPassword;
+  
 };
 
 // Write password to the #password input
