@@ -39,7 +39,7 @@ function generatePassword() {
   }
 
   document.getElementById("password").innerHTML =  randomPassword
-
+  
   return randomPassword;
   
 };
