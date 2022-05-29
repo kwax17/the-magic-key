@@ -1,9 +1,12 @@
 // Assignment code here
 var password = {
-  letters: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
-  numbers: "0123456789",
-  symbols: "!@#$%^&*_-+="
+  letters: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"],
+  alphaLetters: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
+  numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+  symbols: ["!", "#", "$", "%", "&", "*", "+", "-", ".", "/", " < ", "=", " > ", " ? ", "@", "~"]
 };
+
+var randomPassword = ""
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
@@ -11,38 +14,67 @@ var generateBtn = document.querySelector("#generate");
 // password generator function
 function generatePassword() {
   // prompt for password length
-  var passwordLength = window.prompt("How long do you want your password? (8-128 characters)");
+  var passwordLength = window.prompt("How long do you want your password? (8-128 characters)"); 
     if (passwordLength < 8 || passwordLength > 128) {
       window.prompt("Please select a valid number.");
-  }
-  //prompt for numbers
-  var passwordNumbers = window.confirm("Do you want to include numbers?");
-  //prompt for symbols
-  var passwordSymbols = window.confirm("Do you want to include symbols?");
+      
+      generatePassword();
 
+    } else {
+      //prompt for capitalization 
+      var passwordAlpha = window.confirm("Do you want capital letters?")
+      //prompt for numbers
+      var passwordNumbers = window.confirm("Do you want to include numbers?");
+      //prompt for symbols
+      var passwordSymbols = window.confirm("Do you want to include symbols?");
+    };
+
+  var passwordCharacters = []
+
+  if (passwordLetters) {
+    passwordCharacters = passwordCharacters.concat(password.letters)
+  }
+
+  if (passwordAlpha) {
+    passwordCharacters = passwordCharacters.concat(password.alphaLetters)
+  }
+
+  if (passwordNumbers) {
+    passwordCharacters = passwordCharacters.concat(password.numbers)
+  }
+
+  if (passwordSymbols) {
+    passwordCharacters = passwordCharacters.concat(password.symbols)
+  }
+
+  var randomPassword = ""
   for (var i = 0; i <= passwordLength; i++) {
-    if (passwordNumbers === true && passwordSymbols === true) {
-      var randomPassword = ['password.letters', 'password.numbers', 'password.symbols'][Math.floor(Math.random() * 3)];
-    }
+    randomPassword = randomPassword + passwordCharacters[Math.floor(Math.random() * passwordCharacters.length)];
 
-    if (passwordNumbers === true && passwordSymbols === false) {
-      var randomPassword = ['password.letters', 'password.numbers'][Math.floor(Math.random() * 2)];
-    }
+  };
 
-    if (passwordNumbers === false && passwordSymbols === true) {
-      var randomPassword = ['password.letters', 'password.symbols'][Math.floor(Math.random() * 2)];
-    }
-
-    else {
-      var randomPassword = Math.floor(Math.random() * (password.letters));
-    }
-  }
-
-  document.getElementById("password").innerHTML =  randomPassword
-  
   return randomPassword;
   
+
+  // if (passwordNumbers === true && passwordSymbols === true) {
+  //   return randomPassword;
+  // }
+
+  // else if (passwordNumbers === true && passwordSymbols === false) {
+  //   return randomPassword;
+  // }
+
+  // else if (passwordNumbers === false && passwordSymbols === true) {
+  //   return randomPassword;
+  // }
+
+  // else {
+  //   return randomPassword;
+  // }
+
 };
+
+
 
 // Write password to the #password input
 var writePassword = function() {
@@ -51,6 +83,7 @@ var writePassword = function() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
+
 };
 
 // Add event listener to generate button
